@@ -15,4 +15,10 @@ public abstract class Shape {
 	}
 
 	public abstract IntersectionPoint getIntersection(Ray ray);
+	public abstract float getS();
+	public abstract LightInfo sampleOnePoint();
+
+	ArrayList<Material> getMaterials() {
+		return materials;
+	}
 }

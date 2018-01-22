@@ -10,7 +10,7 @@ public abstract class Radiance {
 	
 	public abstract FColor radiance(Ray ray) ;
 	
-	public void setShapes(ArrayList<Shape> s) {
+	public void set(ArrayList<Shape> s,ArrayList<LightSource> l) {
 		shapes = s;
 	}
 	
@@ -29,5 +29,15 @@ public abstract class Radiance {
 		}
 		
 		return ret;
+	}
+	protected boolean isShadow(Ray ray,Vecter3 lightPoint) {
+		float maxT = lightPoint.sub(ray.getOrigin()).abs() - Vecter3.EPS;
+		for(Shape shape : shapes) {
+			IntersectionPoint intersectionPoint = shape.getIntersection(ray);
+			if(intersectionPoint != null && maxT > intersectionPoint.getDistance()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

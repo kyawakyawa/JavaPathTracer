@@ -23,7 +23,7 @@ public class Camera {
 	public Camera(int w,int h,Vecter3 p,Vecter3 d,Vecter3 u,float ds) {
 		picW = w;picH = h;
 		position = p;
-		dir = d;
+		dir = d.normalized();
 		up = u;
 		ds = dist;
 		setCamera();

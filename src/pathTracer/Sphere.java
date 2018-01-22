@@ -41,4 +41,20 @@ public class Sphere extends Shape {
 		
 		return new IntersectionPoint(t,ray.getOrigin().add(d.mul(t)),s.add(d.mul(t)),materials.get(0));
 	}
+	public float getS() {
+		return 4.0f * (float)Math.PI * radius * radius;
+	}
+
+	public LightInfo sampleOnePoint() {
+		float z = (float)(Math.random() * 2.0 - 1.0);
+		float phi = (float) (Math.random() * 2.0 * Math.PI);
+		
+		float w = (float)Math.sqrt(1.0 - z * z);
+		Vecter3 dir = new Vecter3(w * Math.cos(phi),w * Math.sin(phi),z);
+		Vecter3 point = center.add(dir.mul(radius));
+		Vecter3 normal = dir;
+		FColor emission = materials.get(0).getLe();
+		float pdf = 1.0f / getS();
+		return new LightInfo(point,normal,pdf,emission);
+	}
 }

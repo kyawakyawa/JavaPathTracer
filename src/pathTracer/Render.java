@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Render {
 	private ArrayList<Shape> shapes;
+	private ArrayList<LightSource> lights;
 	private Camera camera = new Camera();
 	private Radiance radiance;
 	private FColor img[];
@@ -16,7 +17,8 @@ public class Render {
 	private Render() {
 		
 	}
-	public Render(Radiance radiance,String ip) {
+	public Render(Camera camera,Radiance radiance,String ip) {
+		this.camera = camera;
 		if (radiance == null) {
 			try {
 				throw new Exception("インテグレーターを指定してください");
@@ -26,11 +28,17 @@ public class Render {
 		}
 
 		shapes = new ArrayList<Shape>();
+		lights = new ArrayList<LightSource>();
 		this.radiance = radiance;
 		imgPath = ip;
 	}
 
 	public void add(Shape shape) {
+		shapes.add(shape);
+	}
+	
+	public void addAsLight(Shape shape) {
+		lights.add(new AreaLightSource(shape));
 		shapes.add(shape);
 	}
 	
@@ -42,7 +50,7 @@ public class Render {
 	}
 	
 	public void draw(int sample,int supersamples) {
-		radiance.setShapes(shapes);
+		radiance.set(shapes,lights);
 		initImg();
 		float r = 1.0f / (sample * supersamples * supersamples);
 		
