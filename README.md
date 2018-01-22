@@ -1,5 +1,5 @@
 # JavaPathTracer
 
-シンプルのJavaによるパストレーサーです。
+Javaによるシンプルなパストレーサーです。
 
 eclipseのworkspaceにcloneしてください。
