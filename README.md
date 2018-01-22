@@ -2,4 +2,4 @@
 
 シンプルのJavaによるパストレーサーです。
 
-eclipseのworkspaceにクローンしてください。
+eclipseのworkspaceにcloneしてください。
